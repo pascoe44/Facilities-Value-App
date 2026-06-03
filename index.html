@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hotel Value Tracker</title>
+<style>
+:root{--bg:#f4f7fb;--card:#fff;--text:#172033;--muted:#64748b;--line:#dbe3ef;--primary:#2563eb;--green:#16a34a;--orange:#f97316;--red:#dc2626;--shadow:0 12px 30px rgba(15,23,42,.08);--radius:18px}.dark{--bg:#0f172a;--card:#172033;--text:#f8fafc;--muted:#a7b2c4;--line:#2b3a52;--primary:#60a5fa;--shadow:0 12px 30px rgba(0,0,0,.25)}*{box-sizing:border-box}html,body{margin:0;max-width:100%;overflow-x:hidden;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}button,input,select,textarea{font:inherit;max-width:100%}button{cursor:pointer;border:0}.main{width:100%;padding:14px}.top{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:14px}.titleRow{display:flex;gap:12px;align-items:flex-start;min-width:0}.menuBtn{width:44px;height:44px;border-radius:14px;background:var(--card);color:var(--text);border:1px solid var(--line);box-shadow:var(--shadow);font-size:23px;font-weight:900;display:grid;place-items:center;flex:0 0 auto}.top h2{margin:0;font-size:24px;line-height:1.15}.top p{margin:4px 0 0;color:var(--muted);line-height:1.35}.actions{display:flex;gap:8px;flex-wrap:wrap}.btn{padding:11px 14px;border-radius:14px;background:var(--primary);color:#fff;font-weight:800;box-shadow:var(--shadow)}.btn.secondary{background:var(--card);color:var(--text);border:1px solid var(--line);box-shadow:none}.btn.green{background:var(--green)}.btn.orange{background:var(--orange)}.btn.red{background:var(--red)}.smallbtn{padding:8px 10px;border-radius:11px;background:rgba(37,99,235,.12);color:var(--primary);font-weight:800;margin:2px}.menuBackdrop{position:fixed;inset:0;background:rgba(2,6,23,.48);z-index:70;display:none}.menuBackdrop.show{display:block}.side{width:min(86vw,310px);background:linear-gradient(180deg,#0f3b78,#0b2348);color:#fff;padding:18px;position:fixed;inset:0 auto 0 0;overflow:auto;z-index:80;transform:translateX(-105%);transition:transform .22s ease;box-shadow:18px 0 55px rgba(2,6,23,.32)}.side.open{transform:translateX(0)}.brand{display:flex;gap:12px;align-items:center;margin-bottom:18px}.logo{width:46px;height:46px;border-radius:16px;background:linear-gradient(135deg,#38bdf8,#22c55e);display:grid;place-items:center;font-size:22px;font-weight:900}.brand h1{font-size:18px;margin:0;line-height:1.1}.brand p{margin:4px 0 0;color:#c8d6f2;font-size:12px}.nav{display:grid;gap:8px}.nav button{background:transparent;color:#dbeafe;text-align:left;padding:12px 13px;border-radius:14px;display:flex;gap:10px;align-items:center}.nav button.active,.nav button:hover{background:rgba(255,255,255,.15);color:#fff}.section{display:none}.section.active{display:block}.grid{display:grid;gap:12px}.cards{grid-template-columns:repeat(4,minmax(0,1fr))}.two{grid-template-columns:1fr 1fr}.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px;box-shadow:var(--shadow);min-width:0}.metric small{color:var(--muted);font-weight:800}.metric strong{display:block;font-size:26px;margin-top:7px}.metric span{color:var(--muted);font-size:12px}.toolbar{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px;margin-bottom:12px}.field{display:grid;gap:6px}.field label{font-weight:900;font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}input,select,textarea{width:100%;border:1px solid var(--line);border-radius:13px;padding:11px;background:var(--card);color:var(--text)}textarea{min-height:96px;resize:vertical}.list{display:grid;gap:10px}.item{padding:13px;border:1px solid var(--line);border-radius:16px;background:var(--card);box-shadow:var(--shadow);overflow-wrap:anywhere}.itemHead{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.item b{display:block}.item p{margin:5px 0;color:var(--muted);line-height:1.35}.pill{display:inline-flex;align-items:center;border-radius:999px;padding:5px 9px;font-size:12px;font-weight:900;background:rgba(37,99,235,.12);color:var(--primary);white-space:nowrap}.pill.green{background:rgba(22,163,74,.14);color:var(--green)}.pill.orange{background:rgba(249,115,22,.14);color:var(--orange)}.pill.red{background:rgba(220,38,38,.14);color:var(--red)}.empty{padding:20px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:16px;background:var(--card)}.kpiStrip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:12px 0}.kpi{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px}.kpi small{display:block;color:var(--muted);font-weight:900}.kpi b{font-size:21px;display:block;margin-top:5px}.tagrow{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px}.tag{font-size:12px;border:1px solid var(--line);border-radius:999px;padding:6px 9px;color:var(--muted)}.modal{position:fixed;inset:0;background:rgba(2,6,23,.65);display:none;align-items:flex-start;justify-content:center;padding:10px;z-index:100;overflow:auto}.modal.show{display:flex}.modalbox{width:min(900px,100%);max-height:calc(100vh - 20px);overflow:auto;background:var(--card);border-radius:20px;padding:14px;border:1px solid var(--line);box-shadow:0 30px 80px rgba(0,0,0,.35)}.modalhead{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:14px}.modalhead h3{margin:0;font-size:20px}.formgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.full{grid-column:1/-1}.footerActions{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;margin-top:14px}.reportbox{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.5}.calcNote{font-size:12px;color:var(--muted);padding:10px;border:1px dashed var(--line);border-radius:13px;background:rgba(37,99,235,.05)}.checkGroup{display:grid;gap:8px}.checkGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.checkItem{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:13px;padding:9px;background:rgba(37,99,235,.04);font-weight:700;font-size:13px}.checkItem input{width:auto;min-width:18px;height:18px}.quickGrid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-bottom:12px}.quickTile{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px;text-align:left;box-shadow:var(--shadow);font-weight:900;color:var(--text)}.quickTile span{display:block;font-size:24px;margin-bottom:8px}.winBadge{background:linear-gradient(135deg,#f59e0b,#f97316);color:#fff;border-radius:999px;padding:5px 9px;font-size:12px;font-weight:900;display:inline-flex;align-items:center;gap:4px}@media(max-width:840px){.quickGrid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:430px){.quickGrid{grid-template-columns:1fr}}@media(max-width:520px){.checkGrid{grid-template-columns:1fr}}@media(max-width:840px){.cards,.two,.formgrid{grid-template-columns:1fr}.kpiStrip{grid-template-columns:1fr 1fr}.top{flex-direction:column}.actions{width:100%;display:grid;grid-template-columns:1fr 1fr}.actions .btn{width:100%;font-size:13px;padding:10px}.footerActions{display:grid;grid-template-columns:1fr}.footerActions .btn{width:100%}}@media(max-width:430px){.main{padding:12px}.top h2{font-size:22px}.card{padding:12px}.kpiStrip{grid-template-columns:1fr}.itemHead{display:grid}.metric strong{font-size:22px}}
+
+
+/* Black Ops Facilities Dashboard Theme */
+:root,
+.dark{
+  --bg:#030406;
+  --card:#0b0f14;
+  --text:#f8fafc;
+  --muted:#9aa8bb;
+  --line:#1f2937;
+  --primary:#38bdf8;
+  --green:#22c55e;
+  --orange:#f59e0b;
+  --red:#ef4444;
+  --shadow:0 18px 45px rgba(0,0,0,.55);
+  --radius:20px;
+}
+html,body{
+  background:
+    radial-gradient(circle at top left,rgba(56,189,248,.12),transparent 32%),
+    radial-gradient(circle at top right,rgba(34,197,94,.08),transparent 34%),
+    linear-gradient(180deg,#020304,#05070a 48%,#030406);
+  color:var(--text);
+}
+.main{padding:12px 14px 20px;}
+.top{
+  position:sticky;
+  top:0;
+  z-index:55;
+  margin:-12px -14px 16px;
+  padding:12px 14px;
+  background:rgba(3,4,6,.86);
+  border-bottom:1px solid rgba(148,163,184,.16);
+  backdrop-filter:blur(16px);
+  box-shadow:0 14px 38px rgba(0,0,0,.38);
+}
+.menuBtn{
+  background:linear-gradient(180deg,#111827,#05070a);
+  border:1px solid rgba(56,189,248,.28);
+  color:#e0f2fe;
+  box-shadow:0 0 0 1px rgba(56,189,248,.04),0 14px 30px rgba(0,0,0,.55),0 0 22px rgba(56,189,248,.10);
+}
+.top h2{
+  font-size:23px;
+  letter-spacing:-.03em;
+  color:#fff;
+}
+.top p{color:#9fb2c8;font-size:13px;}
+.actions .btn.secondary{
+  background:linear-gradient(180deg,#111827,#070a0f);
+  border:1px solid rgba(56,189,248,.22);
+  color:#e5f7ff;
+  box-shadow:0 10px 28px rgba(0,0,0,.4);
+}
+.side{
+  background:
+    radial-gradient(circle at top left,rgba(56,189,248,.20),transparent 38%),
+    linear-gradient(180deg,#05070a,#070b12 45%,#030406);
+  border-right:1px solid rgba(56,189,248,.22);
+  box-shadow:24px 0 70px rgba(0,0,0,.72);
+}
+.logo{
+  width:50px;height:50px;border-radius:18px;
+  background:linear-gradient(135deg,#0ea5e9,#22c55e);
+  box-shadow:0 0 30px rgba(56,189,248,.35);
+}
+.brand h1{color:#fff;letter-spacing:-.02em}.brand p{color:#9fb2c8}
+.nav{gap:7px}.nav button{
+  border:1px solid transparent;
+  color:#cbd5e1;
+  font-weight:800;
+}
+.nav button.active,.nav button:hover{
+  background:rgba(56,189,248,.12);
+  color:#fff;
+  border-color:rgba(56,189,248,.25);
+  box-shadow:inset 3px 0 0 #38bdf8;
+}
+.card,.item,.kpi,.empty,.modalbox,input,select,textarea{
+  background:linear-gradient(180deg,#0f141b,#090d12);
+  border-color:rgba(148,163,184,.18);
+}
+.card,.item,.kpi{
+  box-shadow:0 16px 40px rgba(0,0,0,.42), inset 0 1px 0 rgba(255,255,255,.035);
+}
+.card:hover,.item:hover{border-color:rgba(56,189,248,.32);}
+.metric small,.kpi small,.field label{color:#8ea3ba;letter-spacing:.06em;}
+.metric strong,.kpi b{color:#ffffff;text-shadow:0 0 20px rgba(56,189,248,.10);}
+.btn{
+  background:linear-gradient(135deg,#0ea5e9,#2563eb);
+  box-shadow:0 12px 28px rgba(14,165,233,.20),0 12px 30px rgba(0,0,0,.35);
+}
+.btn.secondary,.smallbtn{
+  background:#101722;
+  color:#dbeafe;
+  border:1px solid rgba(148,163,184,.2);
+}
+.btn.green{background:linear-gradient(135deg,#16a34a,#22c55e);color:#03140a;}
+.btn.orange{background:linear-gradient(135deg,#d97706,#f59e0b);color:#120a00;}
+.btn.red{background:linear-gradient(135deg,#dc2626,#ef4444);}
+input,select,textarea{
+  color:#f8fafc;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.03);
+}
+input::placeholder,textarea::placeholder{color:#64748b;}
+.pill{
+  background:rgba(56,189,248,.12);
+  color:#7dd3fc;
+  border:1px solid rgba(56,189,248,.20);
+}
+.pill.green{background:rgba(34,197,94,.13);color:#86efac;border:1px solid rgba(34,197,94,.22);}
+.pill.orange{background:rgba(245,158,11,.13);color:#fcd34d;border:1px solid rgba(245,158,11,.22);}
+.pill.red{background:rgba(239,68,68,.13);color:#fca5a5;border:1px solid rgba(239,68,68,.22);}
+.winBadge{
+  background:linear-gradient(135deg,#fbbf24,#f97316);
+  color:#160b00;
+  box-shadow:0 0 24px rgba(251,191,36,.25);
+}
+.tag{background:rgba(148,163,184,.07);border-color:rgba(148,163,184,.18);color:#bac7d8;}
+.checkItem{background:rgba(56,189,248,.06);border-color:rgba(148,163,184,.18);}
+.calcNote{background:rgba(56,189,248,.06);border-color:rgba(56,189,248,.22);}
+.menuBackdrop{background:rgba(0,0,0,.68);backdrop-filter:blur(2px);}
+.reportbox{background:rgba(255,255,255,.02);border-radius:16px;padding:12px;border:1px solid rgba(148,163,184,.14);}
+@media(max-width:840px){
+  .top{align-items:stretch}.titleRow{align-items:center}.actions{grid-template-columns:1fr 1fr}
+}
+
+
+/* Solid Black Background Override */
+html,body{background:#000 !important;}
+.top{background:#000 !important;}
+.side{background:#05070a !important;}
+.menuBackdrop{background:rgba(0,0,0,.78) !important;}
+
+
+/* Property Support Score */
+.scoreBadge{display:inline-flex;align-items:center;gap:7px;border-radius:999px;padding:7px 11px;font-size:12px;font-weight:900;background:rgba(56,189,248,.12);color:#e0f2fe;border:1px solid rgba(56,189,248,.28);white-space:nowrap}
+.scoreBadge.green{background:rgba(34,197,94,.13);color:#86efac;border-color:rgba(34,197,94,.25)}
+.scoreBadge.orange{background:rgba(245,158,11,.13);color:#fcd34d;border-color:rgba(245,158,11,.25)}
+.scoreBadge.red{background:rgba(239,68,68,.13);color:#fca5a5;border-color:rgba(239,68,68,.25)}
+.scoreBar{height:9px;border-radius:999px;background:#111827;border:1px solid rgba(148,163,184,.18);overflow:hidden;margin-top:9px}
+.scoreFill{height:100%;border-radius:999px;background:linear-gradient(90deg,#38bdf8,#22c55e)}
+.supportExplain{font-size:12px;color:var(--muted);line-height:1.45;margin-top:8px}
+</style>
+</head>
+<body>
+<div class="menuBackdrop" id="menuBackdrop" data-action="close-menu"></div>
+<aside class="side" id="side"><div class="brand"><div class="logo">HVT</div><div><h1>Hotel Value Tracker</h1><p>Facilities impact tracker</p></div></div><div class="nav" id="nav"></div></aside>
+<main class="main"><header class="top"><div class="titleRow"><button class="menuBtn" data-action="toggle-menu">☰</button><div><h2 id="pageTitle">Dashboard</h2><p id="pageSub">Track projects, training, findings, risk prevention, and value created.</p></div></div><div class="actions"><button class="btn secondary" data-action="go-properties">🏨 Properties</button><button class="btn secondary" data-action="go-visits">🚶 Visit Log</button></div></header>
+<section id="dashboard" class="section active"></section><section id="properties" class="section"></section><section id="propertyDetail" class="section"></section><section id="projects" class="section"></section><section id="training" class="section"></section><section id="findings" class="section"></section><section id="tasks" class="section"></section><section id="visits" class="section"></section><section id="reports" class="section"></section><section id="settings" class="section"></section></main>
+<div class="modal" id="modal"><div class="modalbox"><div class="modalhead"><h3 id="modalTitle"></h3><button class="smallbtn" data-action="close-modal">Close</button></div><div id="modalBody"></div></div></div>
+<script>
+(()=>{
+const KEY='hotelValueTracker_noLedger_v1';
+const navItems=[['dashboard','Dashboard','📊'],['properties','Properties','🏨'],['propertyDetail','Property Detail','🏢'],['projects','Projects','🧰'],['training','Training','🎓'],['findings','Findings / Risk','⚠️'],['tasks','Follow-Up Tasks','✅'],['visits','Visit Log','🚶'],['reports','Reports','📄'],['settings','Settings','⚙️']];
+const statuses=['Open','In Progress','Waiting on Others','Completed','On Hold','Cancelled']; const priorities=['Low','Medium','High','Critical'];
+const projectTypes=['HVAC','Plumbing','Electrical','Fire Life Safety','Elevator','Roof','Pool / Spa','Kitchen Equipment','Laundry Equipment','Guest Room','Public Area','Exterior','Capital Project','Emergency Repair','Preventative Maintenance','Other'];
+const trainingTopics=['General Facilities / Engineering','Preventative Maintenance','Life Safety / Fire Systems','Safety / OSHA / Risk Management','Compliance / Brand Standards','HVAC Systems','Plumbing / Domestic Water','Electrical Systems','Elevators / Vertical Transportation','Pool / Spa / Aquatics','Kitchen / Laundry Equipment','Roof / Building Envelope','Energy Management / Sustainability','Water Management / Leak Response','Emergency Response / Disaster Preparedness','Vendor / Contractor Management','Budget / CapEx / Expense Control','Guest Impact / Service Recovery','Team Development / Onboarding','Leadership / Chief Engineer Development','Tools / Parts / Shop Organization','Inspection Process / Property Walks','Other'];
+const facilityAreas=['General Facilities / Engineering','Preventative Maintenance','Life Safety / Fire Systems','Safety / OSHA / Risk Management','Compliance / Brand Standards','HVAC Systems','Plumbing / Domestic Water','Electrical Systems','Elevators / Vertical Transportation','Pool / Spa / Aquatics','Kitchen / Laundry Equipment','Roof / Building Envelope','Energy Management / Sustainability','Water Management / Leak Response','Emergency Response / Disaster Preparedness','Vendor / Contractor Management','Budget / CapEx / Expense Control','Guest Impact / Service Recovery','Team Development / Onboarding','Leadership / Chief Engineer Development','Tools / Parts / Shop Organization','Inspection Process / Property Walks','Guest Rooms','Public Areas / Lobby','Back of House / Storage','Exterior / Parking Lot / Grounds','Other'];
+const impactTypes=['Guest impact','Safety risk','Compliance issue','Property damage','Water loss','Fire life safety issue','Equipment failure','Operational disruption','Brand standard issue','Budget impact','Legal or liability risk','Other'];
+const impactCategories=['Cost Control','Risk Reduction','Compliance Support','Guest Impact Prevention','Team Development','Vendor Accountability','Asset Protection','Energy / Utility Improvement','Emergency Prevention','Brand Standard Support','Capital Planning','Operational Efficiency'];
+let current='dashboard', selectedPropertyId='';
+let state=loadState(); applyTheme();
+function $(id){return document.getElementById(id)} function uid(){return 'id_'+Date.now().toString(36)+Math.random().toString(36).slice(2,7)} function today(){return new Date().toISOString().slice(0,10)} function esc(v){return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))} function money(n){return Number(n||0).toLocaleString(undefined,{style:'currency',currency:'USD',maximumFractionDigits:0})}
+function statusClass(v){v=String(v||'').toLowerCase(); if(v.includes('complete')||v.includes('low'))return 'green'; if(v.includes('high')||v.includes('critical'))return 'red'; if(v.includes('progress')||v.includes('wait')||v.includes('medium')||v.includes('hold'))return 'orange'; return ''}
+function defaultProperties(){return [
+{name:'AC Hotel San Jose',brand:'AC Hotel',city:'San Jose',state:'CA',opsVp:''}, {name:'Aloft Austin Airport',brand:'Aloft',city:'Austin',state:'TX',opsVp:''}, {name:'Aloft Denver Airport at Gateway Park',brand:'Aloft',city:'Aurora',state:'CO',opsVp:''}, {name:'Courtyard Loveland',brand:'Courtyard',city:'Loveland',state:'CO',opsVp:''}, {name:'Courtyard Glenwood Springs',brand:'Courtyard',city:'Glenwood Springs',state:'CO',opsVp:''}, {name:'Denver Airport Marriott at Gateway Park',brand:'Marriott',city:'Aurora',state:'CO',opsVp:''}, {name:'DoubleTree Denver International Airport',brand:'DoubleTree',city:'Denver',state:'CO',opsVp:''}, {name:'DoubleTree Las Vegas Airport',brand:'DoubleTree',city:'Las Vegas',state:'NV',opsVp:''}, {name:'DoubleTree San Francisco Airport North',brand:'DoubleTree',city:'Brisbane',state:'CA',opsVp:''}, {name:'Embassy Suites Austin',brand:'Embassy Suites',city:'Austin',state:'TX',opsVp:''}, {name:'Embassy Suites Walnut Creek',brand:'Embassy Suites',city:'Walnut Creek',state:'CA',opsVp:''}, {name:'Hampton Inn Boulder / Louisville',brand:'Hampton Inn',city:'Louisville',state:'CO',opsVp:''}, {name:'Holiday Inn Express Denver Airport',brand:'Holiday Inn Express',city:'Denver',state:'CO',opsVp:''}, {name:'Hyatt Place Denver Tech Center',brand:'Hyatt Place',city:'Denver',state:'CO',opsVp:''}, {name:'Residence Inn Denver Airport at Gateway Park',brand:'Residence Inn',city:'Aurora',state:'CO',opsVp:''}, {name:'Hilton Garden Inn San Francisco',brand:'Hilton Garden Inn',city:'San Francisco',state:'CA',opsVp:''}, {name:'Marriott Boulder',brand:'Marriott',city:'Boulder',state:'CO',opsVp:''}].map(p=>({id:uid(),gm:'',ce:'',rooms:'',age:'',ownership:'',notes:'',active:true,...p}))}
+function loadState(){try{const s=JSON.parse(localStorage.getItem(KEY)); if(s&&s.properties&&s.projects&&s.training&&s.findings&&s.tasks){s.visits=s.visits||[];(s.properties||[]).forEach(p=>{if(p.opsVp===undefined)p.opsVp=''; if('region' in p)delete p.region;});return s}}catch(e){} return {theme:'dark',properties:defaultProperties(),projects:[],training:[],findings:[],tasks:[],visits:[]}}
+function sortProperties(){state.properties=(state.properties||[]).sort((a,b)=>(a.name||'').localeCompare((b.name||''),undefined,{sensitivity:'base'}))}
+function save(){sortProperties();localStorage.setItem(KEY,JSON.stringify(state)); applyTheme(); render()} function applyTheme(){document.body.classList.toggle('dark',state.theme==='dark')}
+function propName(id){return state.properties.find(p=>p.id===id)?.name||'No property'} function propOptions(selected=''){sortProperties();return state.properties.map(p=>`<option value="${p.id}" ${p.id===selected?'selected':''}>${esc(p.name)}</option>`).join('')} function propertyArea(p){return [p.city,p.state].filter(Boolean).join(', ')||p.opsVp||'Unassigned'} function propertyAreas(){return [...new Set((state.properties||[]).map(propertyArea).filter(Boolean))].sort((a,b)=>a.localeCompare(b,undefined,{sensitivity:'base'}))} function opts(arr,selected=''){return arr.map(x=>`<option ${x===selected?'selected':''}>${esc(x)}</option>`).join('')}
+function calcTotals(propId=''){const projects=state.projects.filter(x=>!propId||x.propertyId===propId), training=state.training.filter(x=>!propId||x.propertyId===propId), findings=state.findings.filter(x=>!propId||x.propertyId===propId), visits=(state.visits||[]).filter(x=>!propId||x.propertyId===propId); const soft=projects.reduce((s,x)=>s+(+x.soft||0),0); const capital=projects.reduce((s,x)=>s+(+x.budget||0),0); return {soft,capital,total:soft,projects,training,findings,visits}}
+function supportScore(propId){const t=calcTotals(propId); const tasks=state.tasks.filter(x=>x.propertyId===propId); const completedTasks=tasks.filter(x=>x.status==='Completed').length; const openHighRisk=t.findings.filter(x=>['High','Critical'].includes(x.risk)&&!['Completed','Cancelled'].includes(x.status)).length; const wins=[...t.projects,...t.training,...t.findings,...t.visits].filter(x=>String(x.majorWin)==='true'||x.majorWin===true).length; const raw=(t.visits.length*12)+(t.projects.length*10)+(t.training.length*8)+(t.findings.length*7)+(completedTasks*5)+(wins*12)-Math.min(openHighRisk*8,24); const score=Math.max(0,Math.min(100,Math.round(raw))); let level='Light Support',cls=''; if(score>=75){level='High Support';cls='green'} else if(score>=40){level='Active Support';cls='orange'} else if(score>0){level='Light Support';cls=''} else {level='No Activity';cls='red'} return {score,level,cls,visits:t.visits.length,projects:t.projects.length,training:t.training.length,findings:t.findings.length,tasks:tasks.length,completedTasks,wins,openHighRisk}}
+function supportScoreCard(propId){const s=supportScore(propId); return `<span class="scoreBadge ${s.cls}">Support Score: ${s.score} • ${s.level}</span><div class="scoreBar"><div class="scoreFill" style="width:${s.score}%"></div></div><div class="supportExplain">Based on visits, projects, training, findings, completed follow-ups, major wins, and open high-risk findings.</div>`}
+function metric(label,val,sub){return `<div class="card metric"><small>${esc(label)}</small><strong>${esc(val)}</strong><span>${esc(sub)}</span></div>`}
+function renderNav(){ $('nav').innerHTML=navItems.map(n=>`<button class="${current===n[0]?'active':''}" data-action="nav" data-section="${n[0]}"><span>${n[2]}</span>${n[1]}</button>`).join('')}
+function setSection(id){current=id; document.querySelectorAll('.section').forEach(s=>s.classList.toggle('active',s.id===id)); const info={dashboard:['Dashboard','Track projects, training, findings, risk prevention, and value created.'],properties:['Properties','Manage hotel profiles.'],propertyDetail:['Property Detail','Select a hotel and see all projects, trainings, findings, and follow-ups.'],projects:['Projects','Track project support, project costs, and value created.'],training:['Training','Record training provided to hotel teams.'],findings:['Findings / Risk','Document issues found early and risk prevention value.'],tasks:['Follow-Up Tasks','Manage follow-up items.'],visits:['Visit Log','Track hotel visits, property walks, meetings, and follow-ups.'],reports:['Reports','Create executive summaries, monthly impact reports, and leadership reports.'],settings:['Settings','Export, import, reset, and manage data.']}; $('pageTitle').textContent=info[id][0]; $('pageSub').textContent=info[id][1]; closeMenu(); render(); requestAnimationFrame(scrollToAppTop);}
+function renderDashboard(){const t=calcTotals(); const open=state.projects.filter(x=>!['Completed','Cancelled'].includes(x.status)).length+state.findings.filter(x=>!['Completed','Cancelled'].includes(x.status)).length+state.tasks.filter(x=>!['Completed','Cancelled'].includes(x.status)).length; const recent=[...state.projects.map(x=>({...x,type:'Project',date:x.start||x.date,title:x.name})),...state.training.map(x=>({...x,type:'Training',title:x.topic})),...state.findings.map(x=>({...x,type:'Finding',title:x.area||'Finding'})),...(state.visits||[]).map(x=>({...x,type:'Visit',date:x.date,title:propName(x.propertyId)}))].sort((a,b)=>(b.date||'').localeCompare(a.date||'')).slice(0,8); const wins=[...state.projects.map(x=>({...x,type:'Project',title:x.name})),...state.training.map(x=>({...x,type:'Training',title:x.topic})),...state.findings.map(x=>({...x,type:'Finding',title:x.area||'Finding'})),...(state.visits||[]).map(x=>({...x,type:'Visit',date:x.date,title:propName(x.propertyId)}))].filter(x=>String(x.majorWin)==='true'||x.majorWin===true).slice(0,6); const highFindings=state.findings.filter(x=>['High','Critical'].includes(x.risk)&&!['Completed','Cancelled'].includes(x.status)).slice(0,6); const completedProjects=state.projects.filter(x=>x.status==='Completed').slice(0,6); const recentTraining=state.training.slice().sort((a,b)=>(b.date||'').localeCompare(a.date||'')).slice(0,6); const supportedProps=[...new Set([...state.projects,...state.training,...state.findings,...(state.visits||[])].map(x=>x.propertyId).filter(Boolean))]; const topSupport=state.properties.map(p=>({p,s:supportScore(p.id)})).filter(x=>x.s.score>0).sort((a,b)=>b.s.score-a.s.score).slice(0,6); const openRisks=state.findings.filter(x=>!['Completed','Cancelled'].includes(x.status)).slice(0,6); const highlightItems=[]; if(wins.length)highlightItems.push(`<div class="item"><b>Major Wins</b><p>${wins.map(x=>esc(propName(x.propertyId))+' - '+esc(x.title||x.name||x.topic||'Item')).join('<br>')}</p></div>`); if(highFindings.length)highlightItems.push(`<div class="item"><b>High-Risk Findings</b><p>${highFindings.map(x=>esc(propName(x.propertyId))+' - '+esc(x.area||'Finding')+' ('+esc(x.risk)+')').join('<br>')}</p></div>`); if(completedProjects.length)highlightItems.push(`<div class="item"><b>Completed Projects</b><p>${completedProjects.map(x=>esc(propName(x.propertyId))+' - '+esc(x.name)).join('<br>')}</p></div>`); if(recentTraining.length)highlightItems.push(`<div class="item"><b>Recent Training</b><p>${recentTraining.map(x=>esc(propName(x.propertyId))+' - '+esc(x.topic)).join('<br>')}</p></div>`); highlightItems.push(`<div class="item"><b>Properties Supported</b><p>${supportedProps.length} properties have logged support activity.</p></div>`); if(topSupport.length)highlightItems.push(`<div class="item"><b>Top Property Support Scores</b><p>${topSupport.map(x=>esc(x.p.name)+' - '+x.s.score+' • '+esc(x.s.level)).join('<br>')}</p></div>`); if(openRisks.length)highlightItems.push(`<div class="item"><b>Open Risks Needing Awareness</b><p>${openRisks.map(x=>esc(propName(x.propertyId))+' - '+esc(x.area||'Finding')+' - '+esc(x.status||'Open')).join('<br>')}</p></div>`); $('dashboard').innerHTML=`<div class="grid cards">${metric('Estimated Value',money(t.soft),'Project and risk prevention')}${metric('Project Cost Total',money(t.capital),'Project dollars influenced')}${metric('Total Value Created',money(t.total),'Estimated project and finding value')}${metric('Properties',state.properties.length,'Hotel profiles')}${metric('Projects',state.projects.length,'Project records')}${metric('Training Sessions',state.training.length,'Training logs')}${metric('Property Visits',(state.visits||[]).length,'Visit records')}${metric('Open Follow-Ups',open,'Open projects, findings, and tasks')}</div><div class="card" style="margin-top:12px"><h3>Executive Highlights</h3><div class="list">${highlightItems.join('')||'<div class="empty">Start logging projects, training, findings, visits, and major wins to build executive highlights.</div>'}</div></div><div class="grid two" style="margin-top:12px"><div class="card"><h3>Recent Activity</h3><div class="list">${recent.length?recent.map(activityCard).join(''):'<div class="empty">No activity yet. Use the menu to add projects, training, findings, visits, or follow-ups.</div>'}</div></div><div class="card"><h3>Major Wins</h3><div class="list">${wins.length?wins.map(activityCard).join(''):'<div class="empty">Mark items as Major Win to highlight them here.</div>'}</div></div></div>`}
+function activityCard(x){return `<div class="item"><div class="itemHead"><b>${esc(x.title||x.name||x.topic||'Untitled')}</b><span class="pill">${esc(x.type||'Item')}</span></div><p>${esc(propName(x.propertyId))} • ${esc(x.date||'No date')}</p></div>`}
+function renderProperties(){sortProperties();const nameFilter=($('propSearch')?.value||'').toLowerCase().trim(); const areaFilter=$('propAreaFilter')?.value||''; const areaOptions=propertyAreas().map(a=>`<option value="${esc(a)}" ${a===areaFilter?'selected':''}>${esc(a)}</option>`).join(''); const list=state.properties.filter(p=>{const area=propertyArea(p); const nameText=[p.name,p.brand,p.city,p.state,p.opsVp].filter(Boolean).join(' ').toLowerCase(); return (!nameFilter||nameText.includes(nameFilter))&&(!areaFilter||area===areaFilter)}); $('properties').innerHTML=`<div class="toolbar"><button class="btn" data-action="add-property">+ Add Property</button><input id="propSearch" placeholder="Filter by hotel name, brand, city, state..." value="${esc($('propSearch')?.value||'')}"><select id="propAreaFilter"><option value="">All Areas</option>${areaOptions}</select><button class="btn secondary" data-action="clear-property-filters">Clear Filters</button></div><div class="tagrow" style="margin-bottom:12px"><span class="tag">Showing ${list.length} of ${state.properties.length}</span><span class="tag">Sorted A-Z</span></div><div class="list">${list.map(p=>{const t=calcTotals(p.id);const s=supportScore(p.id);return `<div class="item"><div class="itemHead"><div><b>${esc(p.name)}</b><p>${esc([p.brand,p.city,p.state].filter(Boolean).join(' • '))}</p></div><span class="scoreBadge ${s.cls}">${s.score} • ${s.level}</span></div><div class="scoreBar"><div class="scoreFill" style="width:${s.score}%"></div></div><div class="tagrow"><span class="tag">Area: ${esc(propertyArea(p))}</span><span class="tag">Projects: ${t.projects.length}</span><span class="tag">Training: ${t.training.length}</span><span class="tag">Findings: ${t.findings.length}</span><span class="tag">Visits: ${t.visits.length}</span><span class="tag">Major Wins: ${s.wins}</span></div><div style="margin-top:10px"><button class="smallbtn" data-action="view-property" data-id="${p.id}">View</button><button class="smallbtn" data-action="edit-property" data-id="${p.id}">Edit</button></div></div>`}).join('')||'<div class="empty">No properties found. Try clearing the filters.</div>'}</div>`}
+function renderPropertyDetail(){if(!selectedPropertyId&&state.properties.length)selectedPropertyId=state.properties[0].id; const p=state.properties.find(x=>x.id===selectedPropertyId); if(!p){$('propertyDetail').innerHTML='<div class="empty">No property selected.</div>'; return} const t=calcTotals(p.id); const s=supportScore(p.id); const tasks=state.tasks.filter(x=>x.propertyId===p.id); $('propertyDetail').innerHTML=`<div class="card"><div class="toolbar"><select id="propertyDetailSelect">${propOptions(p.id)}</select><button class="btn" data-action="add-projects" data-propid="${p.id}">+ Project</button><button class="btn" data-action="add-training" data-propid="${p.id}">+ Training</button><button class="btn" data-action="add-findings" data-propid="${p.id}">+ Finding</button><button class="btn" data-action="add-visits" data-propid="${p.id}">+ Visit</button></div><h3 style="margin-bottom:4px">${esc(p.name)}</h3><p style="color:var(--muted);margin-top:0">${esc([p.brand,p.city,p.state].filter(Boolean).join(' • '))}</p>${supportScoreCard(p.id)}<div class="kpiStrip"><div class="kpi"><small>Support Score</small><b>${s.score}</b></div><div class="kpi"><small>Support Level</small><b>${esc(s.level)}</b></div><div class="kpi"><small>Major Wins</small><b>${s.wins}</b></div><div class="kpi"><small>Open High Risk</small><b>${s.openHighRisk}</b></div><div class="kpi"><small>Total Value</small><b>${money(t.total)}</b></div><div class="kpi"><small>Estimated Value</small><b>${money(t.soft)}</b></div><div class="kpi"><small>Project Cost</small><b>${money(t.capital)}</b></div></div></div><div class="grid two" style="margin-top:12px"><div class="card"><h3>Projects</h3><div class="list">${t.projects.map(x=>projectCard(x)).join('')||'<div class="empty">No projects yet.</div>'}</div></div><div class="card"><h3>Training</h3><div class="list">${t.training.map(x=>trainingCard(x)).join('')||'<div class="empty">No training yet.</div>'}</div></div><div class="card"><h3>Findings / Risk</h3><div class="list">${t.findings.map(x=>findingCard(x)).join('')||'<div class="empty">No findings yet.</div>'}</div></div><div class="card"><h3>Follow-Up Tasks</h3><div class="list">${tasks.map(taskCard).join('')||'<div class="empty">No tasks yet.</div>'}</div></div><div class="card"><h3>Visit Log</h3><div class="list">${t.visits.map(visitCard).join('')||'<div class="empty">No visits yet.</div>'}</div></div></div>`}
+function projectCard(x){return `<div class="item"><div class="itemHead"><b>${esc(x.name)} ${String(x.majorWin)==='true'||x.majorWin===true?'<span class="winBadge">⭐ Major Win</span>':''}</b><span class="pill ${statusClass(x.status)}">${esc(x.status)}</span></div><p>${esc(propName(x.propertyId))} • ${esc(x.type)} • ${esc(x.start||'No date')}</p>${x.valueStatement?`<p><b>Value:</b> ${esc(x.valueStatement)}</p>`:''}<div class="tagrow"><span class="tag">Estimated Value: ${money(x.soft)}</span><span class="tag">Project Cost: ${money(x.budget)}</span>${x.impactCategories?`<span class="tag">Impact: ${esc(x.impactCategories)}</span>`:''}</div><button class="smallbtn" data-action="edit-projects" data-id="${x.id}">Edit</button></div>`}
+function trainingCard(x){return `<div class="item"><div class="itemHead"><b>${esc(x.topic)} ${String(x.majorWin)==='true'||x.majorWin===true?'<span class="winBadge">⭐ Major Win</span>':''}</b><span class="pill">Training</span></div><p>${esc(propName(x.propertyId))} • ${esc(x.date)} • People trained: ${esc(x.people)}</p>${x.valueStatement?`<p><b>Value:</b> ${esc(x.valueStatement)}</p>`:''}${x.impactCategories?`<div class="tagrow"><span class="tag">Impact: ${esc(x.impactCategories)}</span></div>`:''}<button class="smallbtn" data-action="edit-training" data-id="${x.id}">Edit</button></div>`}
+function findingCard(x){return `<div class="item"><div class="itemHead"><b>${esc(x.area||'Finding')} ${String(x.majorWin)==='true'||x.majorWin===true?'<span class="winBadge">⭐ Major Win</span>':''}</b><span class="pill ${statusClass(x.risk)}">${esc(x.risk)}</span></div><p>${esc(propName(x.propertyId))} • ${esc(x.description)}</p>${x.valueStatement?`<p><b>Value:</b> ${esc(x.valueStatement)}</p>`:''}${x.trainingGiven?`<p><b>Training Given:</b> ${esc(x.trainingGiven)}</p>`:''}<div class="tagrow"><span class="tag">Potential Impact: ${esc(x.impact||'')}</span>${x.impactCategories?`<span class="tag">Impact Categories: ${esc(x.impactCategories)}</span>`:''}<span class="tag">Status: ${esc(x.status)}</span></div><button class="smallbtn" data-action="edit-findings" data-id="${x.id}">Edit</button></div>`}
+function taskCard(x){return `<div class="item"><div class="itemHead"><b>${esc(x.title)}</b><span class="pill ${statusClass(x.priority)}">${esc(x.priority)}</span></div><p>${esc(propName(x.propertyId))} • Due: ${esc(x.due||'No date')} • ${esc(x.status)}</p>${x.outcome?`<p><b>Outcome:</b> ${esc(x.outcome)}</p>`:''}<button class="smallbtn" data-action="edit-tasks" data-id="${x.id}">Edit</button></div>`}
+function visitCard(x){return `<div class="item"><div class="itemHead"><b>${esc(propName(x.propertyId))} ${String(x.majorWin)==='true'||x.majorWin===true?'<span class="winBadge">⭐ Major Win</span>':''}</b><span class="pill">Visit</span></div><p>${esc(x.date||'No date')} • Met with: ${esc(x.metWith||'')}</p><p>${esc(x.areas||'')}</p>${x.valueStatement?`<p><b>Value:</b> ${esc(x.valueStatement)}</p>`:''}${x.impactCategories?`<div class="tagrow"><span class="tag">Impact: ${esc(x.impactCategories)}</span></div>`:''}<button class="smallbtn" data-action="edit-visits" data-id="${x.id}">Edit</button></div>`}
+function renderProjects(){$('projects').innerHTML=`<div class="toolbar"><button class="btn" data-action="add-projects">+ Add Project</button><input id="projectSearch" placeholder="Search projects..." value="${esc($('projectSearch')?.value||'')}"></div><div class="list">${filterList(state.projects,'projectSearch').map(projectCard).join('')||'<div class="empty">No projects yet.</div>'}</div>`}
+function renderTraining(){$('training').innerHTML=`<div class="toolbar"><button class="btn" data-action="add-training">+ Add Training</button><input id="trainingSearch" placeholder="Search training..." value="${esc($('trainingSearch')?.value||'')}"></div><div class="list">${filterList(state.training,'trainingSearch').map(trainingCard).join('')||'<div class="empty">No training yet.</div>'}</div>`}
+function renderFindings(){$('findings').innerHTML=`<div class="toolbar"><button class="btn" data-action="add-findings">+ Add Finding</button><input id="findingSearch" placeholder="Search findings..." value="${esc($('findingSearch')?.value||'')}"></div><div class="list">${filterList(state.findings,'findingSearch').map(findingCard).join('')||'<div class="empty">No findings yet.</div>'}</div>`}
+function renderVisits(){$('visits').innerHTML=`<div class="toolbar"><button class="btn" data-action="add-visits">+ Add Visit</button><input id="visitSearch" placeholder="Search visits..." value="${esc($('visitSearch')?.value||'')}"></div><div class="list">${filterList(state.visits||[],'visitSearch').map(visitCard).join('')||'<div class="empty">No visits yet.</div>'}</div>`}
+function renderTasks(){$('tasks').innerHTML=`<div class="toolbar"><button class="btn" data-action="add-tasks">+ Add Task</button><input id="taskSearch" placeholder="Search tasks..." value="${esc($('taskSearch')?.value||'')}"></div><div class="list">${filterList(state.tasks,'taskSearch').map(taskCard).join('')||'<div class="empty">No tasks yet.</div>'}</div>`}
+function filterList(list,id){const q=($(id)?.value||'').toLowerCase(); return list.filter(x=>!q||JSON.stringify(x).toLowerCase().includes(q)||propName(x.propertyId).toLowerCase().includes(q))}
+function renderReports(){$('reports').innerHTML=`<div class="grid two"><div class="card"><h3>Executive Summary Report</h3><div class="formgrid"><div class="field"><label>Property</label><select id="reportProp"><option value="">All Properties</option>${propOptions('')}</select></div><div class="field"><label>Start Date</label><input type="date" id="reportStart"></div><div class="field"><label>End Date</label><input type="date" id="reportEnd"></div></div><div class="footerActions"><button class="btn" data-action="make-report">Create Report</button><button class="btn secondary" data-action="print">Print / Save PDF</button><button class="btn green" data-action="export-leadership-report">Export Leadership Report</button></div><pre class="card reportbox" id="reportOut" style="margin-top:12px">Choose filters and create a report.</pre></div><div class="card"><h3>Monthly Impact Report</h3><p style="color:var(--muted);margin-top:0">Summarizes projects, training, findings, visits, major wins, properties supported, and top focus areas by month.</p><div class="formgrid"><div class="field"><label>Month</label><input type="month" id="monthlyReportMonth" value="${new Date().toISOString().slice(0,7)}"></div><div class="field"><label>Property</label><select id="monthlyReportProp"><option value="">All Properties</option>${propOptions('')}</select></div></div><div class="footerActions"><button class="btn" data-action="make-monthly-report">Create Monthly Report</button><button class="btn green" data-action="export-monthly-report">Export Monthly Report</button></div><pre class="card reportbox" id="monthlyReportOut" style="margin-top:12px">Choose a month and create a monthly impact report.</pre></div></div>`}
+function renderSettings(){$('settings').innerHTML=`<div class="grid two"><div class="card"><h3>Data Tools</h3><div class="footerActions" style="justify-content:flex-start"><button class="btn" data-action="export-json">Export Backup JSON</button><button class="btn" data-action="export-csv">Export Activity CSV</button><label class="btn secondary">Import JSON<input id="jsonImport" type="file" accept="application/json" style="display:none"></label></div></div><div class="card"><h3>Reset</h3><p style="color:var(--muted)">This version does not include a separate Value Ledger. Projects, training, findings, and tasks are the main records.</p><button class="btn orange" data-action="reset-clean">Reset Clean Property List</button> <button class="btn red" data-action="clear-all">Clear All Data</button></div></div>`}
+function render(){renderNav(); if(current==='dashboard')renderDashboard(); if(current==='properties')renderProperties(); if(current==='propertyDetail')renderPropertyDetail(); if(current==='projects')renderProjects(); if(current==='training')renderTraining(); if(current==='findings')renderFindings(); if(current==='tasks')renderTasks(); if(current==='visits')renderVisits(); if(current==='reports')renderReports(); if(current==='settings')renderSettings()}
+function scrollToAppTop(){document.documentElement.scrollTop=0;document.body.scrollTop=0;window.scrollTo({top:0,left:0,behavior:'auto'});const m=document.querySelector('.modalbox');if(m)m.scrollTop=0;const modal=$('modal');if(modal)modal.scrollTop=0;} function openMenu(){$('side').classList.add('open');$('menuBackdrop').classList.add('show')} function closeMenu(){$('side').classList.remove('open');$('menuBackdrop').classList.remove('show')} function showModal(title,body){$('modalTitle').textContent=title;$('modalBody').innerHTML=body;$('modal').classList.add('show');requestAnimationFrame(scrollToAppTop)} function closeModal(){$('modal').classList.remove('show')}
+function field(label,name,value='',type='text'){return `<div class="field"><label>${esc(label)}</label><input type="${type}" name="${name}" value="${esc(value)}"></div>`} function area(label,name,value=''){return `<div class="field full"><label>${esc(label)}</label><textarea name="${name}">${esc(value)}</textarea></div>`} function selectField(label,name,html){return `<div class="field"><label>${esc(label)}</label><select name="${name}">${html}</select></div>`} function checkGroup(label,name,items,selected=''){const picked=Array.isArray(selected)?selected:String(selected||'').split(',').map(x=>x.trim()).filter(Boolean);return `<div class="field full checkGroup"><label>${esc(label)}</label><div class="checkGrid">${items.map(v=>`<label class="checkItem"><input type="checkbox" name="${name}" value="${esc(v)}" ${picked.includes(v)?'checked':''}> <span>${esc(v)}</span></label>`).join('')}</div></div>`}
+function formValues(){const obj={}; document.querySelectorAll('#modalBody [name]').forEach(el=>{if(el.type==='checkbox'){if(el.checked){obj[el.name]=obj[el.name]?[obj[el.name],el.value].flat():[el.value]}}else obj[el.name]=el.type==='number'?Number(el.value||0):el.value}); Object.keys(obj).forEach(k=>{if(Array.isArray(obj[k]))obj[k]=obj[k].join(', ')}); return obj}
+function quickAdd(){showModal('Quick Add',`<div class="grid"><button class="btn" data-action="add-projects">Add Project</button><button class="btn" data-action="add-training">Add Training</button><button class="btn" data-action="add-findings">Add Finding / Risk</button><button class="btn" data-action="add-visits">Add Property Visit</button><button class="btn" data-action="add-tasks">Add Follow-Up Task</button><button class="btn secondary" data-action="add-property">Add Property</button></div>`)}
+function openProperty(id){const x=state.properties.find(a=>a.id===id)||{id:uid(),name:'',brand:'',city:'',state:'',opsVp:'',gm:'',ce:'',rooms:'',age:'',ownership:'',notes:'',active:true};showModal('Property',`<div class="formgrid">${field('Hotel Name','name',x.name)}${field('Brand','brand',x.brand)}${field('City','city',x.city)}${field('State','state',x.state)}${field('Ops VP','opsVp',x.opsVp||'')}${field('GM','gm',x.gm)}${field('Chief Engineer','ce',x.ce)}${field('Rooms','rooms',x.rooms,'number')}${field('Building Age','age',x.age)}${field('Ownership Group','ownership',x.ownership)}${area('Notes','notes',x.notes)}</div><div class="footerActions"><button class="btn" data-action="save-property" data-id="${x.id}">Save Property</button>${id?`<button class="btn red" data-action="delete" data-key="properties" data-id="${id}">Delete</button>`:''}</div>`)}
+function valueHelp(){return `<div class="calcNote full">Quick value guide: Estimated value can be used for avoided disruption, better scope direction, team support, risk reduction, or operational improvement. Use the notes field to explain how the value was created.</div>`}
+function openProject(id,propid=''){const x=state.projects.find(a=>a.id===id)||{id:uid(),name:'',propertyId:propid||selectedPropertyId||state.properties[0]?.id||'',type:'HVAC',description:'',budget:0,soft:0,status:'Open',start:today(),notes:'',valueStatement:'',impactCategories:'',majorWin:false};showModal('Project',`<div class="formgrid">${selectField('Property','propertyId',propOptions(x.propertyId))}${field('Project Name','name',x.name)}${selectField('Project Type','type',opts(projectTypes,x.type))}${field('Start Date','start',x.start,'date')}${field('Project Cost','budget',x.budget,'number')}${field('Estimated Value / Cost Avoidance','soft',x.soft,'number')}${selectField('Status','status',opts(statuses,x.status))}<div class="field full"><label class="checkItem"><input type="checkbox" name="majorWin" value="true" ${String(x.majorWin)==='true'||x.majorWin===true?'checked':''}> <span>Mark as Major Win</span></label></div>${checkGroup('Impact Category Tags','impactCategories',impactCategories,x.impactCategories)}${area('Value Statement','valueStatement',x.valueStatement||'')}${area('Description','description',x.description)}${area('Notes / Value Explanation','notes',x.notes)}${valueHelp()}</div><div class="footerActions"><button class="btn" data-action="save-project" data-id="${x.id}">Save Project</button>${id?`<button class="btn red" data-action="delete" data-key="projects" data-id="${id}">Delete</button>`:''}</div>`)}
+function openTraining(id,propid=''){const x=state.training.find(a=>a.id===id)||{id:uid(),date:today(),propertyId:propid||selectedPropertyId||state.properties[0]?.id||'',topic:'General Facilities / Engineering',people:'',department:'Engineering',description:'',reason:'',notes:'',valueStatement:'',impactCategories:'',majorWin:false};showModal('Training Log',`<div class="formgrid">${field('Date','date',x.date,'date')}${selectField('Property','propertyId',propOptions(x.propertyId))}${selectField('Training Topic','topic',opts(trainingTopics,x.topic))}${field('People Trained','people',x.people,'text')}${field('Department','department',x.department)}<div class="field full"><label class="checkItem"><input type="checkbox" name="majorWin" value="true" ${String(x.majorWin)==='true'||x.majorWin===true?'checked':''}> <span>Mark as Major Win</span></label></div>${checkGroup('Impact Category Tags','impactCategories',impactCategories,x.impactCategories)}${area('Value Statement','valueStatement',x.valueStatement||'')}${area('Description','description',x.description)}${area('Reason for Training','reason',x.reason)}${area('Notes','notes',x.notes)}</div><div class="footerActions"><button class="btn" data-action="save-training" data-id="${x.id}">Save Training</button>${id?`<button class="btn red" data-action="delete" data-key="training" data-id="${id}">Delete</button>`:''}</div>`)}
+function openFinding(id,propid=''){const x=state.findings.find(a=>a.id===id)||{id:uid(),date:today(),propertyId:propid||selectedPropertyId||state.properties[0]?.id||'',area:'',description:'',risk:'Medium',impact:'Property damage',status:'Open',trainingGiven:'',notes:'',valueStatement:'',impactCategories:'',majorWin:false};showModal('Finding / Risk Prevention',`<div class="formgrid">${field('Date Found','date',x.date,'date')}${selectField('Property','propertyId',propOptions(x.propertyId))}${selectField('System / Area','area',opts(facilityAreas,x.area||'General Facilities / Engineering'))}${selectField('Risk Level','risk',opts(priorities,x.risk))}${selectField('Status','status',opts(statuses,x.status))}${checkGroup('Potential Impact','impact',impactTypes,x.impact)}<div class="field full"><label class="checkItem"><input type="checkbox" name="majorWin" value="true" ${String(x.majorWin)==='true'||x.majorWin===true?'checked':''}> <span>Mark as Major Win</span></label></div>${checkGroup('Impact Category Tags','impactCategories',impactCategories,x.impactCategories)}${area('Value Statement','valueStatement',x.valueStatement||'')}${area('Finding Description','description',x.description)}${area('Training Given','trainingGiven',x.trainingGiven||'')}${area('Notes / Risk Explanation','notes',x.notes)}<div class="calcNote full">Select all potential impacts and impact categories that apply. Use Value Statement to explain why this finding mattered to the business.</div></div><div class="footerActions"><button class="btn" data-action="save-finding" data-id="${x.id}">Save Finding</button>${id?`<button class="btn red" data-action="delete" data-key="findings" data-id="${id}">Delete</button>`:''}</div>`)}
+function openVisit(id,propid=''){const x=(state.visits||[]).find(a=>a.id===id)||{id:uid(),date:today(),propertyId:propid||selectedPropertyId||state.properties[0]?.id||'',metWith:'',areas:'',itemsReviewed:'',notes:'',followUps:'',valueStatement:'',impactCategories:'',majorWin:false};showModal('Hotel Visit Log',`<div class="formgrid">${field('Date Visited','date',x.date,'date')}${selectField('Property','propertyId',propOptions(x.propertyId))}${field('Who You Met With','metWith',x.metWith)}${area('Areas Walked','areas',x.areas)}${area('Main Items Reviewed','itemsReviewed',x.itemsReviewed)}<div class="field full"><label class="checkItem"><input type="checkbox" name="majorWin" value="true" ${String(x.majorWin)==='true'||x.majorWin===true?'checked':''}> <span>Mark as Major Win</span></label></div>${checkGroup('Impact Category Tags','impactCategories',impactCategories,x.impactCategories)}${area('Value Statement','valueStatement',x.valueStatement||'')}${area('Follow-Ups Created','followUps',x.followUps)}${area('Notes','notes',x.notes)}</div><div class="footerActions"><button class="btn" data-action="save-visit" data-id="${x.id}">Save Visit</button>${id?`<button class="btn red" data-action="delete" data-key="visits" data-id="${id}">Delete</button>`:''}</div>`)}
+function openTask(id,propid=''){const x=state.tasks.find(a=>a.id===id)||{id:uid(),title:'',propertyId:propid||selectedPropertyId||state.properties[0]?.id||'',assigned:'',due:'',priority:'Medium',status:'Open',outcome:'',notes:''};showModal('Follow-Up Task',`<div class="formgrid">${field('Task Title','title',x.title)}${selectField('Property','propertyId',propOptions(x.propertyId))}${field('Assigned To','assigned',x.assigned)}${field('Due Date','due',x.due,'date')}${selectField('Priority','priority',opts(priorities,x.priority))}${selectField('Status','status',opts(statuses,x.status))}${area('Outcome / Resolution','outcome',x.outcome||'')}${area('Notes','notes',x.notes)}</div><div class="footerActions"><button class="btn" data-action="save-task" data-id="${x.id}">Save Task</button>${id?`<button class="btn red" data-action="delete" data-key="tasks" data-id="${id}">Delete</button>`:''}</div>`)}
+function saveRecord(key,id,data){const i=state[key].findIndex(x=>x.id===id); if(!('majorWin' in data))data.majorWin=false; const rec={id,...data}; if(i>-1)state[key][i]=rec; else state[key].push(rec); closeModal(); save()}
+function deleteRecord(key,id){if(confirm('Delete this record?')){state[key]=state[key].filter(x=>x.id!==id); closeModal(); save()}}
+function makeMonthlyReport(){const month=$('monthlyReportMonth')?.value||new Date().toISOString().slice(0,7),prop=$('monthlyReportProp')?.value||''; const start=month+'-01'; const d=new Date(start+'T00:00:00'); const end=new Date(d.getFullYear(),d.getMonth()+1,0).toISOString().slice(0,10); const inMonth=x=>{const date=x.date||x.start||''; return date>=start&&date<=end&&(!prop||x.propertyId===prop)}; const projects=state.projects.filter(inMonth), training=state.training.filter(inMonth), findings=state.findings.filter(inMonth), visits=(state.visits||[]).filter(inMonth), tasks=state.tasks.filter(inMonth); const all=[...projects.map(x=>({...x,type:'Project',title:x.name,date:x.start||x.date})),...training.map(x=>({...x,type:'Training',title:x.topic,date:x.date})),...findings.map(x=>({...x,type:'Finding',title:x.area||x.description,date:x.date})),...visits.map(x=>({...x,type:'Visit',title:propName(x.propertyId),date:x.date}))]; const props=[...new Set(all.map(x=>x.propertyId).filter(Boolean))]; const wins=all.filter(x=>String(x.majorWin)==='true'||x.majorWin===true); const areas={}; projects.forEach(x=>areas[x.type||x.category||'Projects']=(areas[x.type||x.category||'Projects']||0)+1); training.forEach(x=>areas[x.topic||'Training']=(areas[x.topic||'Training']||0)+1); findings.forEach(x=>areas[x.area||'Findings']=(areas[x.area||'Findings']||0)+1); const topAreas=Object.entries(areas).sort((a,b)=>b[1]-a[1]).slice(0,8).map(([k,v])=>`• ${k}: ${v}`).join('\n')||'No activity areas logged.'; const value=projects.reduce((s,x)=>s+(+x.soft||0),0); const projectCost=projects.reduce((s,x)=>s+(+x.budget||0),0); const text=`Hotel Value Tracker - Monthly Impact Report\n\nMonth: ${month}\nProperty: ${prop?propName(prop):'All Properties'}\n\nProperties Supported: ${props.length}\nProjects Logged: ${projects.length}\nTraining Items Logged: ${training.length}\nFindings / Risk Items Logged: ${findings.length}\nProperty Visits Logged: ${visits.length}\nFollow-Up Tasks Logged: ${tasks.length}\nMajor Wins: ${wins.length}\n\nEstimated Project / Risk Value: ${money(value)}\nProject Cost Total: ${money(projectCost)}\n\nTop Focus Areas:\n${topAreas}\n\nMajor Wins:\n${wins.slice(0,12).map(x=>'• '+x.type+' - '+propName(x.propertyId)+' - '+x.title).join('\n')||'No major wins selected for this month.'}\n\nProjects:\n${projects.slice(0,12).map(x=>'• '+propName(x.propertyId)+' - '+x.name+' - '+(x.status||'No status')).join('\n')||'No project records for this month.'}\n\nTraining:\n${training.slice(0,12).map(x=>'• '+propName(x.propertyId)+' - '+x.topic).join('\n')||'No training records for this month.'}\n\nFindings / Risk:\n${findings.slice(0,12).map(x=>'• '+propName(x.propertyId)+' - '+(x.area||'Finding')+' - '+(x.status||'No status')).join('\n')||'No finding records for this month.'}\n\nProperty Visits:\n${visits.slice(0,12).map(x=>'• '+x.date+' - '+propName(x.propertyId)+' - '+(x.areas||'Property visit')).join('\n')||'No property visits for this month.'}\n\nNarrative Summary:\nThis monthly impact report captures facilities support provided through project guidance, team training, property visits, operational findings, and follow-up activity. Major wins and focus areas can be used for leadership updates, monthly recaps, and performance documentation.`; if($('monthlyReportOut'))$('monthlyReportOut').textContent=text; return text}
+function exportMonthlyReport(){const text=makeMonthlyReport(); const month=$('monthlyReportMonth')?.value||new Date().toISOString().slice(0,7); const html=`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Hotel Value Tracker Monthly Impact Report</title><style>body{font-family:Arial,sans-serif;margin:32px;color:#172033}h1{color:#0f3b78}.box{border:1px solid #dbe3ef;border-radius:14px;padding:18px;white-space:pre-wrap;line-height:1.5}.muted{color:#64748b}
+
+/* Black Ops Facilities Dashboard Theme */
+:root,
+.dark{
+  --bg:#030406;
+  --card:#0b0f14;
+  --text:#f8fafc;
+  --muted:#9aa8bb;
+  --line:#1f2937;
+  --primary:#38bdf8;
+  --green:#22c55e;
+  --orange:#f59e0b;
+  --red:#ef4444;
+  --shadow:0 18px 45px rgba(0,0,0,.55);
+  --radius:20px;
+}
+html,body{
+  background:
+    radial-gradient(circle at top left,rgba(56,189,248,.12),transparent 32%),
+    radial-gradient(circle at top right,rgba(34,197,94,.08),transparent 34%),
+    linear-gradient(180deg,#020304,#05070a 48%,#030406);
+  color:var(--text);
+}
+.main{padding:12px 14px 20px;}
+.top{
+  position:sticky;
+  top:0;
+  z-index:55;
+  margin:-12px -14px 16px;
+  padding:12px 14px;
+  background:rgba(3,4,6,.86);
+  border-bottom:1px solid rgba(148,163,184,.16);
+  backdrop-filter:blur(16px);
+  box-shadow:0 14px 38px rgba(0,0,0,.38);
+}
+.menuBtn{
+  background:linear-gradient(180deg,#111827,#05070a);
+  border:1px solid rgba(56,189,248,.28);
+  color:#e0f2fe;
+  box-shadow:0 0 0 1px rgba(56,189,248,.04),0 14px 30px rgba(0,0,0,.55),0 0 22px rgba(56,189,248,.10);
+}
+.top h2{
+  font-size:23px;
+  letter-spacing:-.03em;
+  color:#fff;
+}
+.top p{color:#9fb2c8;font-size:13px;}
+.actions .btn.secondary{
+  background:linear-gradient(180deg,#111827,#070a0f);
+  border:1px solid rgba(56,189,248,.22);
+  color:#e5f7ff;
+  box-shadow:0 10px 28px rgba(0,0,0,.4);
+}
+.side{
+  background:
+    radial-gradient(circle at top left,rgba(56,189,248,.20),transparent 38%),
+    linear-gradient(180deg,#05070a,#070b12 45%,#030406);
+  border-right:1px solid rgba(56,189,248,.22);
+  box-shadow:24px 0 70px rgba(0,0,0,.72);
+}
+.logo{
+  width:50px;height:50px;border-radius:18px;
+  background:linear-gradient(135deg,#0ea5e9,#22c55e);
+  box-shadow:0 0 30px rgba(56,189,248,.35);
+}
+.brand h1{color:#fff;letter-spacing:-.02em}.brand p{color:#9fb2c8}
+.nav{gap:7px}.nav button{
+  border:1px solid transparent;
+  color:#cbd5e1;
+  font-weight:800;
+}
+.nav button.active,.nav button:hover{
+  background:rgba(56,189,248,.12);
+  color:#fff;
+  border-color:rgba(56,189,248,.25);
+  box-shadow:inset 3px 0 0 #38bdf8;
+}
+.card,.item,.kpi,.empty,.modalbox,input,select,textarea{
+  background:linear-gradient(180deg,#0f141b,#090d12);
+  border-color:rgba(148,163,184,.18);
+}
+.card,.item,.kpi{
+  box-shadow:0 16px 40px rgba(0,0,0,.42), inset 0 1px 0 rgba(255,255,255,.035);
+}
+.card:hover,.item:hover{border-color:rgba(56,189,248,.32);}
+.metric small,.kpi small,.field label{color:#8ea3ba;letter-spacing:.06em;}
+.metric strong,.kpi b{color:#ffffff;text-shadow:0 0 20px rgba(56,189,248,.10);}
+.btn{
+  background:linear-gradient(135deg,#0ea5e9,#2563eb);
+  box-shadow:0 12px 28px rgba(14,165,233,.20),0 12px 30px rgba(0,0,0,.35);
+}
+.btn.secondary,.smallbtn{
+  background:#101722;
+  color:#dbeafe;
+  border:1px solid rgba(148,163,184,.2);
+}
+.btn.green{background:linear-gradient(135deg,#16a34a,#22c55e);color:#03140a;}
+.btn.orange{background:linear-gradient(135deg,#d97706,#f59e0b);color:#120a00;}
+.btn.red{background:linear-gradient(135deg,#dc2626,#ef4444);}
+input,select,textarea{
+  color:#f8fafc;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.03);
+}
+input::placeholder,textarea::placeholder{color:#64748b;}
+.pill{
+  background:rgba(56,189,248,.12);
+  color:#7dd3fc;
+  border:1px solid rgba(56,189,248,.20);
+}
+.pill.green{background:rgba(34,197,94,.13);color:#86efac;border:1px solid rgba(34,197,94,.22);}
+.pill.orange{background:rgba(245,158,11,.13);color:#fcd34d;border:1px solid rgba(245,158,11,.22);}
+.pill.red{background:rgba(239,68,68,.13);color:#fca5a5;border:1px solid rgba(239,68,68,.22);}
+.winBadge{
+  background:linear-gradient(135deg,#fbbf24,#f97316);
+  color:#160b00;
+  box-shadow:0 0 24px rgba(251,191,36,.25);
+}
+.tag{background:rgba(148,163,184,.07);border-color:rgba(148,163,184,.18);color:#bac7d8;}
+.checkItem{background:rgba(56,189,248,.06);border-color:rgba(148,163,184,.18);}
+.calcNote{background:rgba(56,189,248,.06);border-color:rgba(56,189,248,.22);}
+.menuBackdrop{background:rgba(0,0,0,.68);backdrop-filter:blur(2px);}
+.reportbox{background:rgba(255,255,255,.02);border-radius:16px;padding:12px;border:1px solid rgba(148,163,184,.14);}
+@media(max-width:840px){
+  .top{align-items:stretch}.titleRow{align-items:center}.actions{grid-template-columns:1fr 1fr}
+}
+
+</style></head><body><h1>Hotel Value Tracker Monthly Impact Report</h1><p class="muted">Generated ${new Date().toLocaleString()}</p><div class="box">${esc(text)}</div><script>window.onload=()=>window.print()<\/script></body></html>`;downloadFile(`hotel-value-monthly-impact-${month}.html`,html,'text/html')}
+function makeReport(){const prop=$('reportProp').value,start=$('reportStart').value,end=$('reportEnd').value; const filt=x=>(!prop||x.propertyId===prop)&&(!start||(x.date||x.start||'')>=start)&&(!end||(x.date||x.start||'')<=end); const projects=state.projects.filter(filt), training=state.training.filter(filt), findings=state.findings.filter(filt), visits=(state.visits||[]).filter(filt); const soft=projects.reduce((s,x)=>s+(+x.soft||0),0); const capital=projects.reduce((s,x)=>s+(+x.budget||0),0); const wins=[...projects.map(x=>({...x,type:'Project',title:x.name})),...training.map(x=>({...x,type:'Training',title:x.topic})),...findings.map(x=>({...x,type:'Finding',title:x.area||'Finding'})),...visits.map(x=>({...x,type:'Visit',title:propName(x.propertyId)}))].filter(x=>String(x.majorWin)==='true'||x.majorWin===true); $('reportOut').textContent=`Hotel Value Tracker - Executive Summary\n\nDate Range: ${start||'All'} to ${end||'All'}\nProperty: ${prop?propName(prop):'All Properties'}\n\nTotal Value Created: ${money(soft)}\nEstimated Project / Risk / Cost Avoidance Value: ${money(soft)}\nProject Cost Total: ${money(capital)}\n\nProjects Supported: ${projects.length}\nTraining Sessions Provided: ${training.length}\nFindings / Risk Items Documented: ${findings.length}\nProperty Visits Logged: ${visits.length}\nMajor Wins: ${wins.length}\n\nTop Property Support Scores:\n${state.properties.map(p=>({p,s:supportScore(p.id)})).filter(x=>!prop||x.p.id===prop).filter(x=>x.s.score>0).sort((a,b)=>b.s.score-a.s.score).slice(0,10).map(x=>'• '+x.p.name+': '+x.s.score+' - '+x.s.level).join('\n')||'No property support activity logged.'}\n\nMajor Wins:\n${wins.slice(0,10).map(x=>'• '+x.type+' - '+propName(x.propertyId)+' - '+x.title).join('\n')||'No major wins selected.'}\n\nValue Statements:\n${[...projects,...training,...findings,...visits].filter(x=>x.valueStatement).slice(0,12).map(x=>'• '+propName(x.propertyId)+' - '+x.valueStatement).join('\n')||'No value statements entered.'}\n\nImpact Category Tags:\n${[...projects,...training,...findings,...visits].flatMap(x=>String(x.impactCategories||'').split(',').map(s=>s.trim()).filter(Boolean)).reduce((acc,k)=>(acc[k]=(acc[k]||0)+1,acc),{}) && Object.entries([...projects,...training,...findings,...visits].flatMap(x=>String(x.impactCategories||'').split(',').map(s=>s.trim()).filter(Boolean)).reduce((acc,k)=>(acc[k]=(acc[k]||0)+1,acc),{})).sort((a,b)=>b[1]-a[1]).map(([k,v])=>'• '+k+': '+v).join('\n') || 'No impact category tags selected.'}\n\nMajor Project Items:\n${projects.slice(0,8).map(x=>'• '+propName(x.propertyId)+' - '+x.name+' - '+money(+x.soft||0)).join('\n')||'No project records.'}\n\nNarrative Summary:\nDuring this period, facilities support created value through project guidance, training, risk prevention, operational troubleshooting, and early identification of property issues. Values shown as estimated value so the business case stays easy to explain.`}
+function exportJSON(){downloadFile('hotel-value-tracker-backup.json',JSON.stringify(state,null,2),'application/json')} function exportCSV(){const rows=[['Type','Date','Property','Title','Value','Status','Impact','Impact Categories','Value Statement','Major Win','Property Support Score','Support Level'],...state.projects.map(x=>['Project',x.start,propName(x.propertyId),x.name,(+x.soft||0),x.status,'',x.impactCategories||'',x.valueStatement||'',x.majorWin?'Yes':'No',supportScore(x.propertyId).score,supportScore(x.propertyId).level]),...state.training.map(x=>['Training',x.date,propName(x.propertyId),x.topic,'','','',x.impactCategories||'',x.valueStatement||'',x.majorWin?'Yes':'No',supportScore(x.propertyId).score,supportScore(x.propertyId).level]),...state.findings.map(x=>['Finding',x.date,propName(x.propertyId),x.area||x.description,'',x.status,x.impact||'',x.impactCategories||'',x.valueStatement||'',x.majorWin?'Yes':'No',supportScore(x.propertyId).score,supportScore(x.propertyId).level]),...(state.visits||[]).map(x=>['Visit',x.date,propName(x.propertyId),x.areas||'Property Visit','','','',x.impactCategories||'',x.valueStatement||'',x.majorWin?'Yes':'No',supportScore(x.propertyId).score,supportScore(x.propertyId).level])]; const csv=rows.map(r=>r.map(v=>`"${String(v??'').replaceAll('"','""')}"`).join(',')).join('\n'); downloadFile('hotel-value-activity.csv',csv,'text/csv')} function downloadFile(name,content,type){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([content],{type}));a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),500)}
+function exportLeadershipReport(){makeReport(); const html=`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Hotel Value Tracker Leadership Report</title><style>body{font-family:Arial,sans-serif;margin:32px;color:#172033}h1{color:#0f3b78}.box{border:1px solid #dbe3ef;border-radius:14px;padding:18px;white-space:pre-wrap;line-height:1.5}.muted{color:#64748b}
+
+/* Black Ops Facilities Dashboard Theme */
+:root,
+.dark{
+  --bg:#030406;
+  --card:#0b0f14;
+  --text:#f8fafc;
+  --muted:#9aa8bb;
+  --line:#1f2937;
+  --primary:#38bdf8;
+  --green:#22c55e;
+  --orange:#f59e0b;
+  --red:#ef4444;
+  --shadow:0 18px 45px rgba(0,0,0,.55);
+  --radius:20px;
+}
+html,body{
+  background:
+    radial-gradient(circle at top left,rgba(56,189,248,.12),transparent 32%),
+    radial-gradient(circle at top right,rgba(34,197,94,.08),transparent 34%),
+    linear-gradient(180deg,#020304,#05070a 48%,#030406);
+  color:var(--text);
+}
+.main{padding:12px 14px 20px;}
+.top{
+  position:sticky;
+  top:0;
+  z-index:55;
+  margin:-12px -14px 16px;
+  padding:12px 14px;
+  background:rgba(3,4,6,.86);
+  border-bottom:1px solid rgba(148,163,184,.16);
+  backdrop-filter:blur(16px);
+  box-shadow:0 14px 38px rgba(0,0,0,.38);
+}
+.menuBtn{
+  background:linear-gradient(180deg,#111827,#05070a);
+  border:1px solid rgba(56,189,248,.28);
+  color:#e0f2fe;
+  box-shadow:0 0 0 1px rgba(56,189,248,.04),0 14px 30px rgba(0,0,0,.55),0 0 22px rgba(56,189,248,.10);
+}
+.top h2{
+  font-size:23px;
+  letter-spacing:-.03em;
+  color:#fff;
+}
+.top p{color:#9fb2c8;font-size:13px;}
+.actions .btn.secondary{
+  background:linear-gradient(180deg,#111827,#070a0f);
+  border:1px solid rgba(56,189,248,.22);
+  color:#e5f7ff;
+  box-shadow:0 10px 28px rgba(0,0,0,.4);
+}
+.side{
+  background:
+    radial-gradient(circle at top left,rgba(56,189,248,.20),transparent 38%),
+    linear-gradient(180deg,#05070a,#070b12 45%,#030406);
+  border-right:1px solid rgba(56,189,248,.22);
+  box-shadow:24px 0 70px rgba(0,0,0,.72);
+}
+.logo{
+  width:50px;height:50px;border-radius:18px;
+  background:linear-gradient(135deg,#0ea5e9,#22c55e);
+  box-shadow:0 0 30px rgba(56,189,248,.35);
+}
+.brand h1{color:#fff;letter-spacing:-.02em}.brand p{color:#9fb2c8}
+.nav{gap:7px}.nav button{
+  border:1px solid transparent;
+  color:#cbd5e1;
+  font-weight:800;
+}
+.nav button.active,.nav button:hover{
+  background:rgba(56,189,248,.12);
+  color:#fff;
+  border-color:rgba(56,189,248,.25);
+  box-shadow:inset 3px 0 0 #38bdf8;
+}
+.card,.item,.kpi,.empty,.modalbox,input,select,textarea{
+  background:linear-gradient(180deg,#0f141b,#090d12);
+  border-color:rgba(148,163,184,.18);
+}
+.card,.item,.kpi{
+  box-shadow:0 16px 40px rgba(0,0,0,.42), inset 0 1px 0 rgba(255,255,255,.035);
+}
+.card:hover,.item:hover{border-color:rgba(56,189,248,.32);}
+.metric small,.kpi small,.field label{color:#8ea3ba;letter-spacing:.06em;}
+.metric strong,.kpi b{color:#ffffff;text-shadow:0 0 20px rgba(56,189,248,.10);}
+.btn{
+  background:linear-gradient(135deg,#0ea5e9,#2563eb);
+  box-shadow:0 12px 28px rgba(14,165,233,.20),0 12px 30px rgba(0,0,0,.35);
+}
+.btn.secondary,.smallbtn{
+  background:#101722;
+  color:#dbeafe;
+  border:1px solid rgba(148,163,184,.2);
+}
+.btn.green{background:linear-gradient(135deg,#16a34a,#22c55e);color:#03140a;}
+.btn.orange{background:linear-gradient(135deg,#d97706,#f59e0b);color:#120a00;}
+.btn.red{background:linear-gradient(135deg,#dc2626,#ef4444);}
+input,select,textarea{
+  color:#f8fafc;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.03);
+}
+input::placeholder,textarea::placeholder{color:#64748b;}
+.pill{
+  background:rgba(56,189,248,.12);
+  color:#7dd3fc;
+  border:1px solid rgba(56,189,248,.20);
+}
+.pill.green{background:rgba(34,197,94,.13);color:#86efac;border:1px solid rgba(34,197,94,.22);}
+.pill.orange{background:rgba(245,158,11,.13);color:#fcd34d;border:1px solid rgba(245,158,11,.22);}
+.pill.red{background:rgba(239,68,68,.13);color:#fca5a5;border:1px solid rgba(239,68,68,.22);}
+.winBadge{
+  background:linear-gradient(135deg,#fbbf24,#f97316);
+  color:#160b00;
+  box-shadow:0 0 24px rgba(251,191,36,.25);
+}
+.tag{background:rgba(148,163,184,.07);border-color:rgba(148,163,184,.18);color:#bac7d8;}
+.checkItem{background:rgba(56,189,248,.06);border-color:rgba(148,163,184,.18);}
+.calcNote{background:rgba(56,189,248,.06);border-color:rgba(56,189,248,.22);}
+.menuBackdrop{background:rgba(0,0,0,.68);backdrop-filter:blur(2px);}
+.reportbox{background:rgba(255,255,255,.02);border-radius:16px;padding:12px;border:1px solid rgba(148,163,184,.14);}
+@media(max-width:840px){
+  .top{align-items:stretch}.titleRow{align-items:center}.actions{grid-template-columns:1fr 1fr}
+}
+
+</style></head><body><h1>Hotel Value Tracker Leadership Report</h1><p class="muted">Generated ${new Date().toLocaleString()}</p><div class="box">${esc($('reportOut')?.textContent||'')}</div><script>window.onload=()=>window.print()<\/script></body></html>`;downloadFile('hotel-value-leadership-report.html',html,'text/html')}
+function importJSON(file){if(!file)return; const r=new FileReader(); r.onload=()=>{try{const data=JSON.parse(r.result); if(!data.properties)throw Error(); state={theme:data.theme||state.theme,properties:data.properties||[],projects:data.projects||[],training:data.training||[],findings:data.findings||[],tasks:data.tasks||[],visits:data.visits||[]}; save(); alert('Import complete.')}catch(e){alert('Could not import that JSON file.')}}; r.readAsText(file)}
+document.addEventListener('click',e=>{const el=e.target.closest('[data-action]'); if(!el)return; const a=el.dataset.action,id=el.dataset.id,key=el.dataset.key; if(a==='nav')setSection(el.dataset.section); if(a==='toggle-menu')openMenu(); if(a==='close-menu')closeMenu(); if(a==='go-properties')setSection('properties'); if(a==='go-visits')setSection('visits'); if(a==='clear-property-filters'){const ps=$('propSearch');const pa=$('propAreaFilter'); if(ps)ps.value=''; if(pa)pa.value=''; renderProperties()} if(a==='toggle-theme'){state.theme=state.theme==='dark'?'light':'dark';save()} if(a==='close-modal')closeModal(); if(a==='add-property'||a==='edit-property')openProperty(id); if(a==='view-property'){selectedPropertyId=id;setSection('propertyDetail')} if(a==='add-projects'||a==='edit-projects')openProject(id,el.dataset.propid||''); if(a==='add-training'||a==='edit-training')openTraining(id,el.dataset.propid||''); if(a==='add-findings'||a==='edit-findings')openFinding(id,el.dataset.propid||''); if(a==='add-tasks'||a==='edit-tasks')openTask(id,el.dataset.propid||''); if(a==='add-visits'||a==='edit-visits')openVisit(id,el.dataset.propid||''); if(a==='save-property')saveRecord('properties',id,{...formValues(),active:true}); if(a==='save-project')saveRecord('projects',id,formValues()); if(a==='save-training')saveRecord('training',id,formValues()); if(a==='save-finding')saveRecord('findings',id,formValues()); if(a==='save-task')saveRecord('tasks',id,formValues()); if(a==='save-visit')saveRecord('visits',id,formValues()); if(a==='delete')deleteRecord(key,id); if(a==='make-report')makeReport(); if(a==='make-monthly-report')makeMonthlyReport(); if(a==='export-monthly-report')exportMonthlyReport(); if(a==='print')window.print(); if(a==='export-json')exportJSON(); if(a==='export-csv')exportCSV(); if(a==='export-leadership-report')exportLeadershipReport(); if(a==='reset-clean'&&confirm('Reset to the clean property list?')){state={theme:state.theme,properties:defaultProperties(),projects:[],training:[],findings:[],tasks:[],visits:[]};save()} if(a==='clear-all'&&confirm('Clear all app data in this browser?')){state={theme:state.theme,properties:[],projects:[],training:[],findings:[],tasks:[],visits:[]};save()}});
+document.addEventListener('input',e=>{if(['propSearch','projectSearch','trainingSearch','findingSearch','taskSearch','visitSearch'].includes(e.target.id))render()}); document.addEventListener('change',e=>{if(e.target.id==='propertyDetailSelect'){selectedPropertyId=e.target.value;renderPropertyDetail();requestAnimationFrame(scrollToAppTop)} if(e.target.id==='propAreaFilter'){renderProperties()} if(e.target.id==='jsonImport')importJSON(e.target.files[0])}); $('modal').addEventListener('click',e=>{if(e.target.id==='modal')closeModal()}); document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeMenu();closeModal()}}); render();
+})();
+</script>
+</body>
+</html>
